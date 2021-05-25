@@ -19,8 +19,8 @@ const onButton = document.querySelector("#on");
 const startButton = document.querySelector("#start");
 const strictButton = document.querySelector("#strict");
 const bottomLeft = document.querySelector("#bottomleft");
-const bottomRight = document.querySelector("#bottomRight");
-const topLeft = document.querySelector("#topLeft");
+const bottomRight = document.querySelector("#bottomright");
+const topLeft = document.querySelector("#topleft");
 const topRight = document.querySelector("#topright");
 
 // Functions for Simon Game
@@ -64,9 +64,61 @@ function play(){
         order.push(Math.floor(Math.random()*4)+1);
     }
     intervalId=setInterval(gameTurn,800);
-    console.log(order);
+    turnCounter.innerHTML ="1";
 }
 
 function gameTurn(){
-    
+    on=false;
+    if (flash==turn){
+        clearInterval(intervalId);
+        compTurn=false;
+        clearColor();
+        on=true;
+    }
+    if (compTurn){
+        clearColor();
+        setTimeout(()=>{
+            if(order[flash]==1) one();
+            if(order[flash]==2) two();
+            if(order[flash]==3) three();
+            if(order[flash]==4) four();
+            flash++;
+        },200);
+    }
+}
+
+function one(){
+    if (noise){
+        let audio = document.getElementById("clip1");
+        audio.play();
+    }
+    topLeft.style.backgroundColor="Chartreuse";
+}
+
+function two(){
+    if (noise){
+        let audio = document.getElementById("clip2");
+        audio.play();
+    }
+    topRight.style.backgroundColor="Coral";
+}
+function three(){
+    if (noise){
+        let audio = document.getElementById("clip3");
+        audio.play();
+    }
+    bottomLeft.style.backgroundColor="BlanchedAlmond";
+}
+function four(){
+    if (noise){
+        let audio = document.getElementById("clip4");
+        audio.play();
+    }
+    bottomRightLeft.style.backgroundColor="CornflowerBlue";
+}
+function clearColor(){
+    topLeft.style.backgroundColor="darkgreen";
+    topRight.style.backgroundColor="darkred";
+    bottomLeft.style.backgroundColor="goldenrod";
+    bottomRight.style.backgroundColor="darkblue";
 }
